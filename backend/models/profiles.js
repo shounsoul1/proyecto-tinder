@@ -1,7 +1,7 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class perfiles extends Model {
+export default class profiles extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
     id_perfil: {
@@ -10,16 +10,8 @@ export default class perfiles extends Model {
       allowNull: false,
       primaryKey: true
     },
-    nombre: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     genero: {
       type: DataTypes.STRING(30),
-      allowNull: false
-    },
-    edad: {
-      type: DataTypes.INTEGER,
       allowNull: false
     },
     ubicacion: {
@@ -29,10 +21,18 @@ export default class perfiles extends Model {
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    intereses: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    url_photo: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'perfiles',
+    tableName: 'profiles',
     schema: 'public',
     timestamps: false,
     indexes: [

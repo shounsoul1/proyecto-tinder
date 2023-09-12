@@ -1,8 +1,8 @@
-document.getElementById("enviar").addEventListener("click", recopilarDatos);
 // Poder darle enter a cualquier parte de un input para mandar los datos
 document.getElementById("enter").addEventListener("keydown", (event) => {
     if (event.key === "Enter") { 
-        recopilarDatos();
+        const user = recopilarDatos();
+        enviarDatos(user)
     }
 });
 // Function para recopilar los datos de mis inputs y mi select
@@ -123,18 +123,36 @@ function validarPassword(password) {
             return true;
         }
     }
+async function enviarDatos(userData){
+        const user = recopilarDatos();
+        try{
+        const response = await fetch('http://localhost:3000/api/insertar',{
+            method: "POST",
+            headers: {
+                'Content-Type':'application/json', 
+            },
+            body: JSON.stringify(userData)
+        });
+        const data = await response.json();
+        console.log(data);
+    }catch(error){
+        console.error("Error al enviar los datos", error)
+    }
+}
+async function obtenerDatos(){
+    try{
+        const response = await fetch ('http://localhost:3000/api/traer');
+        const data = await response.json();
+        console.log(data)
+    }catch(error){
+        console.error("Error al obtener los datos de la base", error)
+    }
+}
 
-   
-    // try{
-    //     const response = await fetch('http://localhost:3000/crear/usuario',{
-    //         method: "POST",
-    //         headers: {
-    //             'Content-Type':'application/json', 
-    //         },
-    //         body: JSON.stringify(user)
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    // }catch(error){
-    //     console.error("Error al enviar los datos", error)
-    // }
+
+obtenerDatos()
+
+document.getElementById("enviar").addEventListener("click", ()=>{
+    const user = recopilarDatos();
+    enviarDatos(user);
+});

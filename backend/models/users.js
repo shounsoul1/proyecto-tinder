@@ -10,9 +10,9 @@ export default class users extends Model {
       allowNull: false,
       primaryKey: true
     },
-    fullname: {
+    firstname: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     email: {
       type: DataTypes.STRING(30),
