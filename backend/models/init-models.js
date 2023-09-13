@@ -13,6 +13,8 @@ export default function initModels(sequelize) {
   users.hasMany(match, { as: "matches", foreignKey: "useraid"});
   match.belongsTo(users, { as: "userb", foreignKey: "userbid"});
   users.hasMany(match, { as: "userb_matches", foreignKey: "userbid"});
+  users.hasOne(profiles, { foreignKey: 'user_id' }); 
+  profiles.belongsTo(users, { foreignKey: 'user_id' });
 
   return {
     match,
